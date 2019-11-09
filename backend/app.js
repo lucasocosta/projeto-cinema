@@ -9,6 +9,9 @@ const connection = mysql.createConnection({
     database: 'cinema'
 });
 
+var cors = require('cors');
+app.use(cors());
+
 const usermodule = require('./app_modules/usuario.js');
 const cinemamodule = require('./app_modules/cinema.js');
 

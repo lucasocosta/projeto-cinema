@@ -3,6 +3,24 @@ const router = express.Router();
 
 module.exports = (connection) => {
 
+
+    router.get('/cinemas', (req, resp) => {
+        let id_cinema = req.params.id;
+    
+        connection.query("SELECT * FROM cinemas",
+        [id_cinema],
+        (err, result) => {
+            
+            if (err) {
+                console.log(err);
+                resp.status(500).end();
+            } else {        
+                resp.status(200);    
+                resp.json(result);            
+            }
+        });    
+    });
+
     router.get('/cinema/:id', (req, resp) => {
         let id_cinema = req.params.id;
     
