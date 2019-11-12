@@ -33,7 +33,7 @@ module.exports = (connection) => {
                 resp.status(500).end();
             } else {        
                 resp.status(200);    
-                resp.json(result);            
+                resp.json(result[0]);            
             }
         });    
     });
@@ -65,7 +65,7 @@ module.exports = (connection) => {
         let id_cinema = req.params.id;
         let cinema = req.body;    
     
-        connection.query('UPDATE cinemas SET ? WHERE idcinema = ?',
+        connection.query('UPDATE cinemas SET ? WHERE idcinemas = ?',
         [cinema, id_cinema], 
         (err, result ) => {
     
@@ -81,7 +81,7 @@ module.exports = (connection) => {
     router.delete('/cinema/:id', (req, resp) => {
         let id_cinema = req.params.id;
     
-        connection.query('DELETE FROM cinemas WHERE idcinema = ?',
+        connection.query('DELETE FROM cinemas WHERE idcinemas = ?',
         [id_cinema], 
         (err, result) => {
     
