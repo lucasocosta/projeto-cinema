@@ -14,10 +14,12 @@ app.use(cors());
 
 const usermodule = require('./app_modules/usuario.js');
 const cinemamodule = require('./app_modules/cinema.js');
+const enderecomodule = require('./app_modules/endereco.js');
 
 app.use(express.json());
 app.use(usermodule(connection));
 app.use(cinemamodule(connection))
+app.use(enderecomodule(connection))
 
 
 

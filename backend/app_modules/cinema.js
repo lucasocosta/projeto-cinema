@@ -41,6 +41,11 @@ module.exports = (connection) => {
     router.post('/cinema', (req, resp) => {
         let cinema = req.body;
 
+        if("endereco" in cinema)
+        {
+            delete cinema.endereco;
+        }
+
         console.log(req.body);
     
         if (cinema == null) {

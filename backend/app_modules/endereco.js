@@ -15,7 +15,7 @@ module.exports = (connection) => {
                 resp.status(500).end();
             } else {        
                 resp.status(200);    
-                resp.json(result);            
+                resp.json(result[0]);            
             }
         });    
     });
