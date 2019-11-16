@@ -68,7 +68,12 @@ module.exports = (connection) => {
     
     router.put('/cinema/:id', (req, resp) => {
         let id_cinema = req.params.id;
-        let cinema = req.body;    
+        let cinema = req.body;  
+
+        if("endereco" in cinema)
+        {
+            delete cinema.endereco;
+        }
     
         connection.query('UPDATE cinemas SET ? WHERE idcinemas = ?',
         [cinema, id_cinema], 
