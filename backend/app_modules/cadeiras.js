@@ -3,6 +3,23 @@ const router = express.Router();
 
 module.exports = (connection) => {
 
+    router.get('/cadeiras/:id', (req, resp) => {
+        let id_cinema = req.params.id;
+    
+        connection.query("SELECT * FROM cadeiras WHERE idsala = ?",
+        [id_cinema],
+        (err, result) => {
+            
+            if (err) {
+                console.log(err);
+                resp.status(500).end();
+            } else {        
+                resp.status(200);    
+                resp.json(result);            
+            }
+        });    
+    });
+
     router.get('/cadeira/:id', (req, resp) => {
         let id_cadeira = req.params.id;
     
@@ -15,7 +32,7 @@ module.exports = (connection) => {
                 resp.status(500).end();
             } else {        
                 resp.status(200);    
-                resp.json(result);            
+                resp.json(result[0]);            
             }
         });    
     });
@@ -65,6 +82,22 @@ module.exports = (connection) => {
     
         connection.query('DELETE FROM cadeiras WHERE idcadeira = ?',
         [id_cadeira], 
+        (err, result) => {
+    
+            if (err) {
+                console.log(err);
+                resp.status(500).end();
+            } else {
+                resp.status(200).end();
+            }
+        });
+    });
+
+    router.delete('/cadeiras/:id', (req, resp) => {
+        let id_sala = req.params.id;
+    
+        connection.query('DELETE FROM cadeiras WHERE idsala = ?',
+        [id_sala], 
         (err, result) => {
     
             if (err) {

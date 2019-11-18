@@ -3,6 +3,23 @@ const router = express.Router();
 
 module.exports = (connection) => {
 
+    router.get('/salas/:id', (req, resp) => {
+        let id_cinema = req.params.id;
+    
+        connection.query("SELECT * FROM salas WHERE idcinema = ?",
+        [id_cinema],
+        (err, result) => {
+            
+            if (err) {
+                console.log(err);
+                resp.status(500).end();
+            } else {        
+                resp.status(200);    
+                resp.json(result);            
+            }
+        });    
+    });
+
     router.get('/sala/:id', (req, resp) => {
         let id_sala = req.params.id;
     
@@ -15,7 +32,7 @@ module.exports = (connection) => {
                 resp.status(500).end();
             } else {        
                 resp.status(200);    
-                resp.json(result);            
+                resp.json(result[0]);            
             }
         });    
     });
@@ -59,6 +76,7 @@ module.exports = (connection) => {
             }
         });
     });
+    
     
     router.delete('/sala/:id', (req, resp) => {
         let id_sala = req.params.id;

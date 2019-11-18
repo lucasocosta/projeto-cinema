@@ -17,36 +17,17 @@ app.use(cors());
 const usermodule = require('./app_modules/usuario.js');
 const cinemamodule = require('./app_modules/cinema.js');
 const enderecomodule = require('./app_modules/endereco.js');
+const salamodule = require('./app_modules/sala.js');
+const cadeiramodule = require('./app_modules/cadeiras.js');
 
 app.use(express.json());
 app.use(usermodule(connection));
 app.use(cinemamodule(connection))
 app.use(enderecomodule(connection))
+app.use(salamodule(connection))
+app.use(cadeiramodule(connection))
 
 
-
-app.post('/usuario1', (req, resp) => {
-  let usuario = req.body;
-
-  console.log(req.body);
-
-  if (usuario == null) {
-      resp.status(204).end();
-  } else {
-      connection.query('INSERT INTO usuario SET ?',
-      [usuario], 
-      (err, result) => {
-
-          if (err) {
-              console.log(err);
-              resp.status(500).end();
-          } else {
-              resp.status(200);
-              resp.json(result);
-          }
-      });
-  }    
-});
 
 app.listen('3000', () => {
     connection.connect((err) => {
