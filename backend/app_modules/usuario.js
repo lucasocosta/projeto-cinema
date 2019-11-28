@@ -1,10 +1,8 @@
 const express = require('express');
+const moment = require('moment');
 const router = express.Router();
 
 module.exports = (connection) => {
-
-
-
     router.get('/usuarios', (req, resp) => {
         let id_cinema = req.params.id;
     
@@ -41,6 +39,9 @@ module.exports = (connection) => {
     
     router.post('/usuario', (req, resp) => {
         let usuario = req.body;
+
+        //console.log(moment.utc(usuario.data_nasc));
+        usuario.data_nasc=moment(usuario.data_nasc).format('YYYY-MM-DDTHH:mm:ss');
 
         if("endereco" in usuario)
         {

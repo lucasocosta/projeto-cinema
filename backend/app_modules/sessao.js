@@ -1,7 +1,29 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
+
+
 
 module.exports = (connection) => {
+    router.get('/sessoes/:id', (req, resp) => {
+        let id_cinema = req.params.id;
+    
+        connection.query("SELECT DISTINCT sessao.* FROM sessao INNER JOIN "+
+        "salas ON sessao.idsala = salas.idsala INNER JOIN cinemas "+
+        "ON salas.idcinema = ?;",
+        [id_cinema],
+        (err, result) => {
+            
+            if (err) {
+                console.log(err);
+                resp.status(500).end();
+            } else {        
+                resp.status(200);    
+                resp.json(result);            
+            }
+        });    
+    });
+    
 
     router.get('/sessao/:id', (req, resp) => {
         let id_sessao = req.params.id;
@@ -15,7 +37,7 @@ module.exports = (connection) => {
                 resp.status(500).end();
             } else {        
                 resp.status(200);    
-                resp.json(result);            
+                resp.json(result[0]);            
             }
         });    
     });
@@ -23,6 +45,9 @@ module.exports = (connection) => {
     router.post('/sessao', (req, resp) => {
         let sessao = req.body;
 
+
+        sessao.horainicio=moment(sessao.horainicio).format('YYYY-MM-DDTHH:mm:ss');
+        sessao.horafim=moment(sessao.horafim).format('YYYY-MM-DDTHH:mm:ss');
         console.log(req.body);
     
         if (sessao == null) {

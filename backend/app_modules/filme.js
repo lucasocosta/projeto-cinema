@@ -3,6 +3,21 @@ const router = express.Router();
 
 module.exports = (connection) => {
 
+    router.get('/filmes', (req, resp) => {
+
+        connection.query("SELECT * FROM filme",
+        (err, result) => {
+            
+            if (err) {
+                console.log(err);
+                resp.status(500).end();
+            } else {        
+                resp.status(200);    
+                resp.json(result);            
+            }
+        });    
+    });
+
     router.get('/filme/:id', (req, resp) => {
         let id_filme = req.params.id;
     
@@ -15,7 +30,7 @@ module.exports = (connection) => {
                 resp.status(500).end();
             } else {        
                 resp.status(200);    
-                resp.json(result);            
+                resp.json(result[0]);            
             }
         });    
     });

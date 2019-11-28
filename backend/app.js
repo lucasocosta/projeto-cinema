@@ -19,14 +19,24 @@ const cinemamodule = require('./app_modules/cinema.js');
 const enderecomodule = require('./app_modules/endereco.js');
 const salamodule = require('./app_modules/sala.js');
 const cadeiramodule = require('./app_modules/cadeiras.js');
+const filmemodule = require('./app_modules/filme.js');
+const sessaomodule = require('./app_modules/sessao.js');
 
 app.use(express.json());
 app.use(usermodule(connection));
-app.use(cinemamodule(connection))
-app.use(enderecomodule(connection))
-app.use(salamodule(connection))
-app.use(cadeiramodule(connection))
+app.use(cinemamodule(connection));
+app.use(enderecomodule(connection));
+app.use(salamodule(connection));
+app.use(cadeiramodule(connection));
+app.use(filmemodule(connection));
+app.use(sessaomodule(connection));
 
+const jwt  = require('jsonwebtoken');
+
+app.post('/login', (req,resp) => {
+    let user = req.body;
+
+});
 
 
 app.listen('3000', () => {
