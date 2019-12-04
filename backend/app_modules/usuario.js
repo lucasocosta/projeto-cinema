@@ -2,8 +2,8 @@ const express = require('express');
 const moment = require('moment');
 const router = express.Router();
 
-module.exports = (connection) => {
-    router.get('/usuarios', (req, resp) => {
+module.exports = (connection, verifica_token) => {
+    router.get('/usuarios', verifica_token, (req, resp)=> {
         let id_cinema = req.params.id;
     
         connection.query("SELECT * FROM usuario",
@@ -20,7 +20,7 @@ module.exports = (connection) => {
         });    
     });
 
-    router.get('/usuario/:id', (req, resp) => {
+    router.get('/usuario/:id', verifica_token, (req, resp) => {
         let id_usuario = req.params.id;
     
         connection.query("SELECT * FROM usuario WHERE idusuario = ?",
@@ -37,7 +37,7 @@ module.exports = (connection) => {
         });    
     });
     
-    router.post('/usuario', (req, resp) => {
+    router.post('/usuario', verifica_token, (req, resp) => {
         let usuario = req.body;
 
         //console.log(moment.utc(usuario.data_nasc));
@@ -68,7 +68,7 @@ module.exports = (connection) => {
         }    
     });
     
-    router.put('/usuario/:id', (req, resp) => {
+    router.put('/usuario/:id', verifica_token, (req, resp) => {
         let id_usuario = req.params.id;
         let usuario = req.body;
 
@@ -90,7 +90,7 @@ module.exports = (connection) => {
         });
     });
     
-    router.delete('/usuario/:id', (req, resp) => {
+    router.delete('/usuario/:id', verifica_token, (req, resp) => {
         let id_usuario = req.params.id;
     
         connection.query('DELETE FROM usuario WHERE idusuario = ?',
