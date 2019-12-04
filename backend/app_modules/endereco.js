@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = (connection) => {
+module.exports = (connection,verifica_token) => {
 
-    router.get('/endereco/:id', (req, resp) => {
+    router.get('/endereco/:id',verifica_token, (req, resp) => {
         let id_endereco = req.params.id;
     
         connection.query("SELECT * FROM endereco WHERE idendereco = ?",
@@ -20,7 +20,7 @@ module.exports = (connection) => {
         });    
     });
     
-    router.post('/endereco', (req, resp) => {
+    router.post('/endereco',verifica_token, (req, resp) => {
         let endereco = req.body;
 
         console.log(req.body);
@@ -43,7 +43,7 @@ module.exports = (connection) => {
         }    
     });
     
-    router.put('/endereco/:id', (req, resp) => {
+    router.put('/endereco/:id',verifica_token, (req, resp) => {
         let id_endereco = req.params.id;
         let endereco = req.body;    
     
@@ -60,7 +60,7 @@ module.exports = (connection) => {
         });
     });
     
-    router.delete('/endereco/:id', (req, resp) => {
+    router.delete('/endereco/:id',verifica_token, (req, resp) => {
         let id_endereco = req.params.id;
     
         connection.query('DELETE FROM endereco WHERE idendereco = ?',

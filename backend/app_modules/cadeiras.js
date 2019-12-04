@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = (connection) => {
+module.exports = (connection,verifica_token) => {
 
-    router.get('/cadeiras/:id', (req, resp) => {
+    router.get('/cadeiras/:id', verifica_token, (req, resp) => {
         let id_cinema = req.params.id;
     
         connection.query("SELECT * FROM cadeiras WHERE idsala = ?",
@@ -20,7 +20,7 @@ module.exports = (connection) => {
         });    
     });
 
-    router.get('/cadeira/:id', (req, resp) => {
+    router.get('/cadeira/:id', verifica_token, (req, resp) => {
         let id_cadeira = req.params.id;
     
         connection.query("SELECT * FROM cadeiras WHERE idcadeira = ?",
@@ -37,7 +37,7 @@ module.exports = (connection) => {
         });    
     });
     
-    router.post('/cadeira', (req, resp) => {
+    router.post('/cadeira', verifica_token, (req, resp) => {
         let cadeira = req.body;
 
         console.log(req.body);
@@ -60,7 +60,7 @@ module.exports = (connection) => {
         }    
     });
     
-    router.put('/cadeira/:id', (req, resp) => {
+    router.put('/cadeira/:id', verifica_token, (req, resp) => {
         let id_cadeira = req.params.id;
         let cadeira = req.body;    
     
@@ -77,7 +77,7 @@ module.exports = (connection) => {
         });
     });
     
-    router.delete('/cadeira/:id', (req, resp) => {
+    router.delete('/cadeira/:id',verifica_token, (req, resp) => {
         let id_cadeira = req.params.id;
     
         connection.query('DELETE FROM cadeiras WHERE idcadeira = ?',
@@ -93,7 +93,7 @@ module.exports = (connection) => {
         });
     });
 
-    router.delete('/cadeiras/:id', (req, resp) => {
+    router.delete('/cadeiras/:id',verifica_token, (req, resp) => {
         let id_sala = req.params.id;
     
         connection.query('DELETE FROM cadeiras WHERE idsala = ?',

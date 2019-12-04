@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = (connection) => {
+module.exports = (connection,verifica_token) => {
 
 
-    router.get('/cinemas', (req, resp) => {
+    router.get('/cinemas',verifica_token, (req, resp) => {
         let id_cinema = req.params.id;
     
         connection.query("SELECT * FROM cinemas",
@@ -21,7 +21,7 @@ module.exports = (connection) => {
         });    
     });
 
-    router.get('/cinema/:id', (req, resp) => {
+    router.get('/cinema/:id',verifica_token, (req, resp) => {
         let id_cinema = req.params.id;
     
         connection.query("SELECT * FROM cinemas WHERE idcinemas = ?",
@@ -38,7 +38,7 @@ module.exports = (connection) => {
         });    
     });
     
-    router.post('/cinema', (req, resp) => {
+    router.post('/cinema',verifica_token, (req, resp) => {
         let cinema = req.body;
 
         if("endereco" in cinema)
@@ -66,7 +66,7 @@ module.exports = (connection) => {
         }    
     });
     
-    router.put('/cinema/:id', (req, resp) => {
+    router.put('/cinema/:id',verifica_token, (req, resp) => {
         let id_cinema = req.params.id;
         let cinema = req.body;  
 
@@ -88,7 +88,7 @@ module.exports = (connection) => {
         });
     });
     
-    router.delete('/cinema/:id', (req, resp) => {
+    router.delete('/cinema/:id',verifica_token, (req, resp) => {
         let id_cinema = req.params.id;
     
         connection.query('DELETE FROM cinemas WHERE idcinemas = ?',

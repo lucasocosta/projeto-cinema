@@ -45,12 +45,12 @@ const sessaomodule = require('./app_modules/sessao.js');
 
 app.use(express.json());
 app.use(usermodule(connection, verifica_token));
-app.use(cinemamodule(connection));
-app.use(enderecomodule(connection));
-app.use(salamodule(connection));
-app.use(cadeiramodule(connection));
-app.use(filmemodule(connection));
-app.use(sessaomodule(connection));
+app.use(cinemamodule(connection, verifica_token));
+app.use(enderecomodule(connection, verifica_token));
+app.use(salamodule(connection, verifica_token));
+app.use(cadeiramodule(connection, verifica_token));
+app.use(filmemodule(connection, verifica_token));
+app.use(sessaomodule(connection, verifica_token));
 
 
 

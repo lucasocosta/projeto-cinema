@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = (connection) => {
+module.exports = (connection,verifica_token) => {
 
-    router.get('/ingresso/:id', (req, resp) => {
+    router.get('/ingresso/:id',verifica_token, (req, resp) => {
         let id_ingresso = req.params.id;
     
         connection.query("SELECT * FROM ingresso WHERE idingresso = ?",
@@ -20,7 +20,7 @@ module.exports = (connection) => {
         });    
     });
     
-    router.post('/ingresso', (req, resp) => {
+    router.post('/ingresso',verifica_token, (req, resp) => {
         let ingresso = req.body;
 
         console.log(req.body);
@@ -43,7 +43,7 @@ module.exports = (connection) => {
         }    
     });
     
-    router.put('/ingresso/:id', (req, resp) => {
+    router.put('/ingresso/:id',verifica_token, (req, resp) => {
         let id_ingresso = req.params.id;
         let ingresso = req.body;    
     
@@ -60,7 +60,7 @@ module.exports = (connection) => {
         });
     });
     
-    router.delete('/ingresso/:id', (req, resp) => {
+    router.delete('/ingresso/:id',verifica_token, (req, resp) => {
         let id_ingresso = req.params.id;
     
         connection.query('DELETE FROM ingresso WHERE idingresso = ?',

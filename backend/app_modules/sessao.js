@@ -4,8 +4,8 @@ const moment = require('moment');
 
 
 
-module.exports = (connection) => {
-    router.get('/sessoes/:id', (req, resp) => {
+module.exports = (connection,verifica_token) => {
+    router.get('/sessoes/:id',verifica_token, (req, resp) => {
         let id_cinema = req.params.id;
     
         connection.query("SELECT DISTINCT sessao.* FROM sessao INNER JOIN "+
@@ -25,7 +25,7 @@ module.exports = (connection) => {
     });
     
 
-    router.get('/sessao/:id', (req, resp) => {
+    router.get('/sessao/:id',verifica_token, (req, resp) => {
         let id_sessao = req.params.id;
     
         connection.query("SELECT * FROM sessao WHERE idsessao = ?",
@@ -42,7 +42,7 @@ module.exports = (connection) => {
         });    
     });
     
-    router.post('/sessao', (req, resp) => {
+    router.post('/sessao',verifica_token, (req, resp) => {
         let sessao = req.body;
 
 
@@ -68,7 +68,7 @@ module.exports = (connection) => {
         }    
     });
     
-    router.put('/sessao/:id', (req, resp) => {
+    router.put('/sessao/:id',verifica_token, (req, resp) => {
         let id_sessao = req.params.id;
         let sessao = req.body;    
     
@@ -85,7 +85,7 @@ module.exports = (connection) => {
         });
     });
     
-    router.delete('/sessao/:id', (req, resp) => {
+    router.delete('/sessao/:id',verifica_token, (req, resp) => {
         let id_sessao = req.params.id;
     
         connection.query('DELETE FROM sessao WHERE idsessao = ?',

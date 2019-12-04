@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = (connection) => {
+module.exports = (connection,verifica_token) => {
 
-    router.get('/salas/:id', (req, resp) => {
+    router.get('/salas/:id',verifica_token, (req, resp) => {
         let id_cinema = req.params.id;
     
         connection.query("SELECT * FROM salas WHERE idcinema = ?",
@@ -20,7 +20,7 @@ module.exports = (connection) => {
         });    
     });
 
-    router.get('/sala/:id', (req, resp) => {
+    router.get('/sala/:id',verifica_token, (req, resp) => {
         let id_sala = req.params.id;
     
         connection.query("SELECT * FROM salas WHERE idsala = ?",
@@ -37,7 +37,7 @@ module.exports = (connection) => {
         });    
     });
     
-    router.post('/sala', (req, resp) => {
+    router.post('/sala',verifica_token, (req, resp) => {
         let sala = req.body;
 
         console.log(req.body);
@@ -60,7 +60,7 @@ module.exports = (connection) => {
         }    
     });
     
-    router.put('/sala/:id', (req, resp) => {
+    router.put('/sala/:id',verifica_token, (req, resp) => {
         let id_sala = req.params.id;
         let sala = req.body;    
     
@@ -78,7 +78,7 @@ module.exports = (connection) => {
     });
     
     
-    router.delete('/sala/:id', (req, resp) => {
+    router.delete('/sala/:id',verifica_token, (req, resp) => {
         let id_sala = req.params.id;
     
         connection.query('DELETE FROM salas WHERE idsala = ?',

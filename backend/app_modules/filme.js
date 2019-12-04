@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = (connection) => {
+module.exports = (connection,verifica_token) => {
 
-    router.get('/filmes', (req, resp) => {
+    router.get('/filmes',verifica_token, (req, resp) => {
 
         connection.query("SELECT * FROM filme",
         (err, result) => {
@@ -18,7 +18,7 @@ module.exports = (connection) => {
         });    
     });
 
-    router.get('/filme/:id', (req, resp) => {
+    router.get('/filme/:id',verifica_token, (req, resp) => {
         let id_filme = req.params.id;
     
         connection.query("SELECT * FROM filme WHERE idfilme = ?",
@@ -35,7 +35,7 @@ module.exports = (connection) => {
         });    
     });
     
-    router.post('/filme', (req, resp) => {
+    router.post('/filme',verifica_token, (req, resp) => {
         let filme = req.body;
 
         console.log(req.body);
@@ -58,7 +58,7 @@ module.exports = (connection) => {
         }    
     });
     
-    router.put('/filme/:id', (req, resp) => {
+    router.put('/filme/:id',verifica_token, (req, resp) => {
         let id_filme = req.params.id;
         let filme = req.body;    
     
@@ -75,7 +75,7 @@ module.exports = (connection) => {
         });
     });
     
-    router.delete('/filme/:id', (req, resp) => {
+    router.delete('/filme/:id',verifica_token, (req, resp) => {
         let id_filme = req.params.id;
     
         connection.query('DELETE FROM filme WHERE idfilme = ?',
